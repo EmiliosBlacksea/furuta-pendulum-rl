@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Training artefacts (large – store on Google Drive / S3)
+saved_models/
+tensorboard_logs/
+tensorboard_real_logs/
+
+# Generated firmware header (rebuilt by scripts/export_weights.py)
+firmware/model_weights.h
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PlatformIO / Arduino build
+.pio/
+.pioenvs/
