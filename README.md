@@ -1,8 +1,8 @@
 # Furuta Pendulum – Edge RL
 
 Reinforcement learning controller for a **Furuta (rotary) pendulum** built around:
-- **Teensy 4.x** microcontroller running a 3-layer MLP at 50 Hz
-- Stepper motor + optical encoder
+- **Teensy 4.0** microcontroller running a 3-layer MLP at 50 Hz
+- Stepper motor + photoelectric incremental encoder (600 P/R)
 - PPO policy trained in simulation and optionally fine-tuned on the physical robot
 
 The agent learns to swing up and balance the pendulum using only the six-dimensional observation `[motor_pos, motor_vel, cos(θ), sin(θ), enc_vel, prev_action]`.
@@ -43,7 +43,7 @@ furuta-pendulum-rl/
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Train in simulation (~2 M steps, ~1 h on average laptop (CPU only))
+# 2. Train in simulation (~2 M steps, ~1 h on a laptop CPU)
 python scripts/train.py
 
 # 3. Watch the trained policy
@@ -115,15 +115,18 @@ scripts/train.py             scripts/finetune_robot.py
 | Domain randomisation | physics params, gravity tilt, latency | — |
 | Observation normalisation | VecNormalize | Streamed as W:0/1 commands |
 
-> **Note:** The EMA filter coefficients in the sim (`filter_enc = 0.80`) differ from
-> the firmware (`FILTER_ENC = 0.35`).  The sim was tuned to match the *effective*
-> filtering seen on hardware; further alignment is an open improvement.
+> **Note:** The EMA filter coefficients differ between simulation (`filter_enc = 0.80`)
+> and firmware (`FILTER_ENC = 0.35 / FILTER_MOT = 0.40`). This mismatch has not been
+> characterised on the physical hardware and is a known source of sim-to-real gap.
+> Aligning these coefficients is a primary target for future work.
 
 ---
 
 ## Current status
 
 - ✅ Swing-up and balance achieved on physical hardware
-- ✅ Autonomous edge-AI inference at 50 Hz on Teensy
-- ✅ Online weight streaming for real-world fine-tuning
-- 🔧 Balance stability (drift) under active investigation
+- ✅ Autonomous edge-AI inference at 50 Hz on Teensy 4.0
+- ✅ Perturbation recovery demonstrated
+- ✅ Online weight streaming infrastructure implemented
+- 🔧 EMA filter alignment between sim and firmware pending
+- ⏳ Real-robot fine-tuning pipeline implemented, not yet evaluated
