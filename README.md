@@ -43,7 +43,7 @@ furuta-pendulum-rl/
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Train in simulation (~2 M steps, ~1 h on a modern GPU)
+# 2. Train in simulation (~2 M steps, ~1 h on average laptop (CPU only))
 python scripts/train.py
 
 # 3. Watch the trained policy
