@@ -1,5 +1,6 @@
 # Furuta Pendulum – Edge RL
 
+[![Demo Video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=LYdLzPiJU2s)
 Reinforcement learning controller for a **Furuta (rotary) pendulum** built around:
 - **Teensy 4.0** microcontroller running a 3-layer MLP at 50 Hz
 - Stepper motor + photoelectric incremental encoder (600 P/R)
